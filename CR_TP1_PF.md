@@ -51,3 +51,39 @@ Plusieurs erreurs dans ce extrait:
 
 ## Exercice 3
 
+1) Définir un type **semaine** dont les éléments permettent de représenter chaque jour de la semaine.
+
+```
+#type semaine = Lundi | Mardi | Mercredi | Jeudi | Vendredi | Samedi | Dimanche ;;
+type semaine = 
+        Lundi
+    |   Mardi
+    |   Mercredi
+    |   Jeudi
+    |   Vendredi
+    |   Samedi
+    |   Dimanche
+```
+2) Définir un type **point2D** qui permet de représenter les points du plan.
+```
+#type point2D = { mutable x : int; mutable y : int};;
+type point2D = { mutable x : int; mutable y : int}
+```
+3) Définir un identifiant de type **point2D** qui représente l'origine de repère
+```
+#let origine = {2, 4};;
+val origine : point2D = {2, 4}
+```
+4) Définir un type **segment** (à l'aide du précédent).
+```
+#type segment = {point1 : point2D; point2 : point2D};;
+type segment = {point1 : point2D; point2 : point2D; }
+```
+5) Définir un type somme **figure** pour représenter les figures géométriques carré, rectangle et cercle.
+```
+#type figure = Carre of segment * segment * segment * segment 
+| Rectangle of segment * segment * segment * segment 
+| Cercle of point2D
+```
+
+## Exercice 4
