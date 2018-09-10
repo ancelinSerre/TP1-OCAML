@@ -18,7 +18,7 @@ Voir sujet de TP, il s'agissait d'exécuter des commandes simples en OCaml.
 Evaluer chacune des expressions suivantes, observer les messages d'erreur et expliquer chacun d'entre eux. \
 \
 Premier extrait de code :
-```
+```ocaml
 let pi_sur_4 = 3.14 / 4.
 ```
 
@@ -29,7 +29,7 @@ Cela s'explique par le fait que l'on a oublié le `.` juste après le symbole de
 \
 Deuxième extrait de code :
 
-```
+```ocaml
 let dans_l_ordre = 1 < 2 < 3
 ```
 On obtient le message d'erreur suivant : \
@@ -38,7 +38,7 @@ On obtient le message d'erreur suivant : \
 Cela s'explique par le fait que OCaml calcule en premier `1 < 2` ce qui renvoie `false`. On essaye ensuite de calculer `false < 3` ce qui ne peut donc pas fonctionner car on compare un `bool` avec un `int`. \
 \
 Troisième extrait de code :
-```
+```ocaml
 let positif = let a = 42 in if a >= 0 then true
 ```
 On obtient le message d'erreur suivant : \
@@ -47,7 +47,7 @@ On obtient le message d'erreur suivant : \
 Cela s'explique par le fait qu'il manque un `else` à notre `if`. \
 \
 Quatrième extrait de code :
-```
+```ocaml
 let double_absolu = let x = -2.7 in (if (x < 0) then x else -x) *. 2
 ```
 On obtient le message d'erreur suivant : \
@@ -61,8 +61,8 @@ Plusieurs erreurs dans ce extrait:
 
 1) Définir un type **semaine** dont les éléments permettent de représenter chaque jour de la semaine.
 
-```
-#type semaine = Lundi | Mardi | Mercredi | Jeudi | Vendredi | Samedi | Dimanche ;;
+```ocaml
+type semaine = Lundi | Mardi | Mercredi | Jeudi | Vendredi | Samedi | Dimanche ;;
 type semaine =
         Lundi
     |   Mardi
@@ -73,19 +73,19 @@ type semaine =
     |   Dimanche
 ```
 2) Définir un type **point2D** qui permet de représenter les points du plan.
-```
+```ocaml
 type point2D = { mutable x : int; mutable y : int};;
 ```
 3) Définir un identifiant de type **point2D** qui représente l'origine de repère
-```
+```ocaml
 let origine = {x=2, y=4};;
 ```
 4) Définir un type **segment** (à l'aide du précédent).
-```
+```ocaml
 type segment = {p1 : point2D; p2 : point2D};;
 ```
 5) Définir un type somme **figure** pour représenter les figures géométriques carré, rectangle et cercle.
-```
+```ocaml
 type figure = Carre of segment * segment * segment * segment
 | Rectangle of segment * segment * segment * segment
 | Cercle of point2D
@@ -93,7 +93,7 @@ type figure = Carre of segment * segment * segment * segment
 
 ## Exercice 4
 Développement d'un jeu **Uno** pour illustrer les types composés.
-```
+```ocaml
 type couleur = Vert | Rouge | Bleu | Jaune | Noir
 type chiffre = x : int in if x >= 0 && x < 9 x else 0
 type genre = Chiffre | Piege | Joker
@@ -108,40 +108,40 @@ Pour le jeu de Uno, on propose la hiérarchie de types suivante :
 
 ## Exercice 5
 1) Faire une fonction qui calcule le cube d'un réel.
-```
+```ocaml
 let cube = fun x -> x *. x *. x;;
 ```
 2) Faire une fonction qui calcule si un entier est positif.
-```
+```ocaml
 let positif = fun x -> if x > 0 then true else false;;
 ```
 3) Faire une fonction qui calcule si un entier est pair.
-```
+```ocaml
 let pair = fun x -> if x mod 2 == 0 then true else false;;
 ```
 4) Faire une fonction qui calcule le signe d'un entier.
-```
+```ocaml
 let signe = fun x -> if x > 0 then 1 else if x < 0 then (-1) else 0;;
 ```
 
 ## Exercice 6
 1) Produit de 3 entiers sous la forme d'une fonction curryfiée.
-```
+```ocaml
 let f1 = fun x -> fun y -> fun z -> x * y * z;;
 ```
 2) Somme de 3 entiers sous la forme d'une fonction curryfiée.
-```
+```ocaml
 let f2 = fun x -> fun y -> fun z -> x + y + z;;
 ```
 
 ## Exercice 7
 1) Fonction qui determine si un triplet de valeur forme un triplet pythagoricien.
-```
+```ocaml
 let pytha = fun x -> fun y -> fun z ->
 if(x*x)+(y*y)=(z*z) || (y*y)+(z*z)=(x*x) || (x*x)+(z*z)=(y*y) then true else false;;
 ```
 2) Fonction qui determine si 2 entiers sont de même signe.
-```
+```ocaml
 let meme_signe = fun x -> fun y -> if( x > 0 && y > 0)  || (x<0 && y<0) then true else false;;
 ```
 
@@ -150,31 +150,31 @@ let meme_signe = fun x -> fun y -> if( x > 0 && y > 0)  || (x<0 && y<0) then tru
 - Dans l'exercice 7, les fonctions correspondent cette fois à des **prédicats** : on effectue de nouveau des calculs avec des entiers mais on s'intéresse cette fois non plus au résultats de ces derniers mais aux valeurs particulières obtenues cela dans l'objectif de renvoyer un booléen.
 
 1) Fonction ayant le type `int -> int -> int`
-```
+```ocaml
 let fonc = fun x -> fun y -> x + y;;
 ```
 2) Fonction ayant le type `int -> int -> bool`
-```
+```ocaml
 let fonc = fun x -> fun y -> if x > 0 && y > 0 then true else false;;
 ```
 
 ## Exercice 9
 Fonction calculant le minimum entre **deux entiers**.
-```
+```ocaml
 let min2entiers = fun x -> fun y -> if x <= y then x else y;;
 ```
 ## Exercice 10
 Fonction calculant le minimum entre **trois entiers**.
-```
+```ocaml
 let min3entiers = fun x -> fun y -> fun z -> if min2entiers x y <= z then min2entiers x y else z;;
 ```
 
 ## Exercice 11
 1) Fonction renvoyant le **milieu d'un segment** (`point2D`)
-```
+```ocaml
 let milieu = fun seg -> {x = (seg.p1.x + seg.p2.x) / 2 ; y = (seg.p1.y + seg.p2.y) / 2};;
 ```
 2) Fonction déterminant si un **point appartient ou non à un segment**
-```
+```ocaml
 
 ```
