@@ -1,8 +1,16 @@
 # TP1 - Programmation Fonctionnelle
-Auteurs : Baptiste Bouvier et Ancelin Serre \
-Date : 07/09/2018 \
-Polytech INFO4
+**Auteurs** : Baptiste Bouvier et Ancelin Serre \
+**Date** : 07/09/2018 \
+**Polytech INFO4**
 
+**Site du TP :** http://www-verimag.imag.fr/~wack/APF/Poly-TP-18-19.pdf \
+**Cours utiles pour ce TP:**
+- http://www-verimag.imag.fr/~wack/APF/Cours01.pdf
+- http://www-verimag.imag.fr/~wack/APF/Cours02.pdf
+  
+*Note: un fichier OCaml (.ml) est présent dans le dépôt afin de jouer nos bouts de codes plus rapidement.*
+
+-----
 ## Exercice 1
 Voir sujet de TP, il s'agissait d'exécuter des commandes simples en OCaml.
 
@@ -66,32 +74,30 @@ type semaine =
 ```
 2) Définir un type **point2D** qui permet de représenter les points du plan.
 ```
-#type point2D = { mutable x : int; mutable y : int};;
-type point2D = { mutable x : int; mutable y : int}
+type point2D = { mutable x : int; mutable y : int};;
 ```
 3) Définir un identifiant de type **point2D** qui représente l'origine de repère
 ```
-#let origine = {2, 4};;
-val origine : point2D = {2, 4}
+let origine = {x=2, y=4};;
 ```
 4) Définir un type **segment** (à l'aide du précédent).
 ```
-#type segment = {point1 : point2D; point2 : point2D};;
-#type segment = {point1 : point2D; point2 : point2D; }
+type segment = {p1 : point2D; p2 : point2D};;
 ```
 5) Définir un type somme **figure** pour représenter les figures géométriques carré, rectangle et cercle.
 ```
-#type figure = Carre of segment * segment * segment * segment
+type figure = Carre of segment * segment * segment * segment
 | Rectangle of segment * segment * segment * segment
 | Cercle of point2D
 ```
 
 ## Exercice 4
+Développement d'un jeu **Uno** pour illustrer les types composés.
 ```
-#type couleur = Vert | Rouge | Bleu | Jaune | Noir
-#type chiffre = x : int in if x >= 0 && x < 9 x else 0
-#type genre = Chiffre | Piege | Joker
-#type carte = genre * couleur * chiffre
+type couleur = Vert | Rouge | Bleu | Jaune | Noir
+type chiffre = x : int in if x >= 0 && x < 9 x else 0
+type genre = Chiffre | Piege | Joker
+type carte = genre * couleur * chiffre
 ```
 Pour le jeu de Uno, on propose la hiérarchie de types suivante :
 - Piege et 0 -> passe ton tour
