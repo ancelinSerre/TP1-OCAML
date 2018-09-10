@@ -87,3 +87,7 @@ type segment = {point1 : point2D; point2 : point2D; }
 ```
 
 ## Exercice 4
+```
+#type couleur = Vert | Rouge | Bleu | Jaune
+#type chiffre = x : int in if x >= 0 && x < 9 x else 0
+```
