@@ -164,3 +164,11 @@ let min3entiers = fun x -> fun y -> fun z -> if min2entiers x y <= z then min2en
 ```
 
 ## Exercice 11
+1) Fonction renvoyant le **milieu d'un segment** (`point2D`)
+```
+let milieu = fun seg -> {x = (seg.p1.x + seg.p2.x) / 2 ; y = (seg.p1.y + seg.p2.y) / 2};;
+```
+2) Fonction déterminant si un **point appartient ou non à un segment**
+```
+
+```
