@@ -295,11 +295,7 @@ let peut_jouer carte =
     let genre = carte.gen in
     match genre with
         | Chiffre -> true
-        | Joker ->
-            if carte.digit = 0 then
-                true
-            else
-                false
+        | Joker -> if carte.digit = 0 then true else false
         | Piege -> false;;
 ```
 
