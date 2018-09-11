@@ -12,7 +12,7 @@ type figure  =
 (* Exercice 4 - Hierarchie de type pour le Uno *)
 (*---------------------------------------------*)
 type couleur = Vert | Rouge | Bleu | Jaune | Noir ;;
-type chiffre = x : int in if x >= 0 && x < 9 x else 0 ;;
+type chiffre = int ;;
 type genre   = Chiffre | Piege | Joker ;;
 type carte   = genre * couleur * chiffre ;;
 
@@ -116,32 +116,120 @@ let aire (f : figure) =
   la formule d'aire propre à la figure donnée, 
   on utilise le pattern-matching *)
   match f with
-  | Rectangle (s1, s2, s3, s4) ->
-      (* Longueur = s1 ; Largeur = s2 *)
-      let longueur = distance s1.p1 s1.p2 in
-      let largeur  = distance s2.p1 s2.p2 in
-      longueur *. largeur
-  | Carre (s1, s2, s3, s4) ->
-      (* On a besoin d'un seul côté ici ... *)        
-      let cote = distance s1.p1 s1.p2 in
-      cote ** 2.
-  | Cercle (s1) ->
-      (* On doit d'abord générer pi avant de calculer l'aire *)
-      let pi    = 4. *. (atan 1.) in
-      let rayon = distance s1.p1 s1.p2 in
-      pi *. (rayon ** 2.);;
+    | Rectangle (s1, s2, s3, s4) ->
+        (* Longueur = s1 ; Largeur = s2 *)
+        let longueur = distance s1.p1 s1.p2 in
+        let largeur  = distance s2.p1 s2.p2 in
+        longueur *. largeur
+    | Carre (s1, s2, s3, s4) ->
+        (* On a besoin d'un seul côté ici ... *)        
+        let cote = distance s1.p1 s1.p2 in
+        cote ** 2.
+    | Cercle (s1) ->
+        (* On doit d'abord générer pi avant de calculer l'aire *)
+        let pi    = 4. *. (atan 1.) in
+        let rayon = distance s1.p1 s1.p2 in
+        pi *. (rayon ** 2.);;
 
 (* Exercice 14 - Définir diverses fonctions se rapportant au jeu de Uno *)
 (*----------------------------------------------------------------------*)
 
+(* Prédicat indiquant si un entier est un chiffre ou non *)
+let is_digit x = 
+  if x >= 0 && x <= 9 then
+      true
+  else
+      false;;
+
+(* On ajoute également une exception pour gérer ce cas dans la fonction suivante *)
+exception Not_a_digit;;
+
 (* Fonction calculant la valeur d'une carte *)
 let valeur carte =
-  let genre = carte.g in
+  let genre = carte.gen in
   match genre with
-  | Chiffre ->
-    carte.c 
-  | Piege ->
-    20
-  | _ ->
-    50;;
+    | Chiffre ->
+      let d = carte.digit in
+        (* Vérification de la valeur de l'objet digit de la carte *)
+        if is_digit d then
+          d
+        else
+          raise Not_a_digit  
+    | Piege -> 20
+    | Joker -> 50;;
 
+(* Determiner si le joueur suivant peut jouer ou non *)
+let peut_jouer carte = 
+  let genre = carte.gen in
+  match genre with
+    | Chiffre -> true
+    | Joker -> if carte.digit = 0 then true else false
+    | Piege -> false;;
+
+(* Faire une fonction afin de déterminer si le joueur peut 
+poser sa carte sur celle présente sur la pile *)
+let peut_pose_carte x y = 
+  (* Même couleur OU type Chiffre et même chiffre *)
+  if x.col = y.col || (x.gen = Chiffre && y.gen = Chiffre && x.digit = y.digit) then
+      true
+  else 
+      false;;
+
+  (* Définir un type pour un jeu de 54 cartes standard, et des 
+  fonctions de traduction entre les deux types de cartes lorsque c’est possible *)
+  (*TODO*)
+
+(* Exercice 15 - Travailler avec des listes et des fonctions récursives *)
+(*----------------------------------------------------------------------*)
+
+(* On définit au préalable un type liste *)
+type listent = Nil | Cons of int * listent;;
+
+(* Exemple d'utilisation *)
+let rec longueur l = 
+    match l with
+        | Nil -> 0
+        | Cons(x, s) -> 1 + longueur s
+
+(* Calcul de la somme d'une liste d'entier *)
+let rec somme liste =
+  match liste with 
+      | Nil -> 0 
+      | Cons(x, s) -> x + somme s;;
+
+(* Déterminer si l'ensemble des entiers d'une liste sont positifs *)
+let rec pos liste =
+  match liste with
+      | Nil -> true 
+      | Cons(x, s) -> if x > 0 then pos s else false;;
+
+(* Ajout d'un élément en fin de liste *)
+let rec ajout liste item =
+  match liste with 
+      | Nil -> Cons(item, Nil) 
+      | Cons(x, s) -> Cons(x, ajout s item);;
+
+(* Concaténation de deux listes *)
+let rec concat liste1 liste2 = 
+  match liste1 with 
+      | Nil -> liste2 
+      | Cons(x, s) -> Cons(x, concat s liste2);;
+
+(* Exercice 16 - Encore du Uno *)
+(*-----------------------------*)
+
+(* Définir une liste de carte (main de carte) *)
+type listecarte = Nil | Cons of carte * listecarte;;
+
+(* Calculer la valeur d'une main de carte *)
+let main_v liste = 
+  match liste with 
+      | Nil -> 0 
+      | Cons(x,s) -> valeur x + main_v s;;
+
+(* Déterminer les cartes pouvant être jouées sur une carte donnée *)
+(* TODO *)
+
+(* Déterminer si les cartes d'une main peuvent être jouées à la suite
+dans l'ordre de la main *)
+(* TODO *)

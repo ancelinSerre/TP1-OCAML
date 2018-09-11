@@ -64,13 +64,13 @@ Plusieurs erreurs dans ce extrait:
 ```ocaml
 type semaine = Lundi | Mardi | Mercredi | Jeudi | Vendredi | Samedi | Dimanche ;;
 type semaine =
-        Lundi
-    |   Mardi
-    |   Mercredi
-    |   Jeudi
-    |   Vendredi
-    |   Samedi
-    |   Dimanche
+    | Lundi
+    | Mardi
+    | Mercredi
+    | Jeudi
+    | Vendredi
+    | Samedi
+    | Dimanche
 ```
 2) Définir un type **point2D** qui permet de représenter les points du plan.
 ```ocaml
@@ -87,9 +87,9 @@ type segment = { p1 : point2D; p2 : point2D};;
 5) Définir un type somme **figure** pour représenter les figures géométriques carré, rectangle et cercle.
 ```ocaml
 type figure  = 
-| Carre of segment * segment * segment * segment
-| Rectangle of segment * segment * segment * segment
-| Cercle of point2D;;
+    | Carre of segment * segment * segment * segment
+    | Rectangle of segment * segment * segment * segment
+    | Cercle of point2D;;
 ```
 
 ## Exercice 4
@@ -97,7 +97,7 @@ Développement d'un jeu **Uno** pour illustrer les types composés.
 ```ocaml
 type couleur = Vert | Rouge | Bleu | Jaune | Noir;;
 type genre = Chiffre | Piege | Joker;;
-type carte = {g : genre; color : couleur ; c : int};;
+type carte = {gen : genre; col : couleur ; digit : int};;
 ```
 Pour le jeu de Uno, on propose la hiérarchie de types suivante :
 - Piege et 0 -> passe ton tour
@@ -206,7 +206,7 @@ let appartient p seg =
 ## Exercice 12
 Ecrire une fonction qui teste si un jour de la semaine est un jour du week-end.
 ```ocaml
-let weeknd x = if x = Samedi || x = Dimanche then true else false;;
+let weekend x = if x = Samedi || x = Dimanche then true else false;;
 ```
 
 ## Exercice 13
@@ -225,20 +225,20 @@ Maintenant que l'on dispose de cette fonction, on peut développer la fonction `
 ```ocaml
 let aire (f : figure) = 
   match f with
-  | Rectangle (s1, s2, s3, s4) ->
-      (* Longueur = s1 ; Largeur = s2 *)
-      let longueur = distance s1.p1 s1.p2 in
-      let largeur  = distance s2.p1 s2.p2 in
-      longueur *. largeur
-  | Carre (s1, s2, s3, s4) ->
-      (* On a besoin d'un seul côté ici ... *)        
-      let cote = distance s1.p1 s1.p2 in
-      cote ** 2.
-  | Cercle (s1) ->
-      (* On doit d'abord générer pi avant de calculer l'aire *)
-      let pi    = 4. *. (atan 1.) in
-      let rayon = distance s1.p1 s1.p2 in
-      pi *. (rayon ** 2.);;
+    | Rectangle (s1, s2, s3, s4) ->
+        (* Longueur = s1 ; Largeur = s2 *)
+        let longueur = distance s1.p1 s1.p2 in
+        let largeur  = distance s2.p1 s2.p2 in
+        longueur *. largeur
+    | Carre (s1, s2, s3, s4) ->
+        (* On a besoin d'un seul côté ici ... *)        
+        let cote = distance s1.p1 s1.p2 in
+        cote ** 2.
+    | Cercle (s1) ->
+        (* On doit d'abord générer pi avant de calculer l'aire *)
+        let pi    = 4. *. (atan 1.) in
+        let rayon = distance s1.p1 s1.p2 in
+        pi *. (rayon ** 2.);;
 ```
 Dans cette fonction, on peut voir que l'on traite des objets de type `figure` qui comprend
 rappelons le les types suivants : 
@@ -246,9 +246,9 @@ rappelons le les types suivants :
 > *Type figure comprenant les types `Carre`, `Rectangle` et `Cercle`.*
 > ```ocaml
 > type figure  = 
-> | Carre of segment * segment * segment * segment
-> | Rectangle of segment * segment * segment * segment
-> | Cercle of point2D;;
+>   | Carre of segment * segment * segment * segment
+>   | Rectangle of segment * segment * segment * segment
+>   | Cercle of point2D;;
 > ```
 > *Rappel : Le type `segment` contient deux `point2D`*
 
@@ -256,58 +256,138 @@ rappelons le les types suivants :
 De ce fait, pour pouvoir appliquer la formule d'aire propre à la figure donnée, on utilise ici le **pattern-matching** ce que l'on peut observer via l'utilisation de la structure `match f with`. Cela correspond en quelque sorte à un **switch** sur le type d'un objet.
 
 ## Exercice 14
+>*Rappel : Développement d'un jeu **Uno** pour illustrer les types composés.*
+>```ocaml
+>type couleur = Vert | Rouge | Bleu | Jaune | Noir;;
+>type genre = Chiffre | Piege | Joker;;
+>type carte = {gen : genre; col : couleur ; digit : int};;
+>```
 1) Calculer la valeur d'une carte.
+
+Il semble qu'on ne puisse générer un type entier restreint entre 0 et 9. Pour cela, on a donc utilisé simplement le type `int`. On doit donc faire une fonction afin de vérifier que l'on a bien entré un **entier compris entre 0 et 9**
+
 ```ocaml
-let valeur x = if x.g = Chiffre then x.c else if x.g = Piege then 20 else 50;;
+let is_digit x = 
+    if x >= 0 && x <= 9 then
+        true
+    else
+        false;;
+
+(* On ajoute également une exception pour gérer ce cas particulier dans la fonction suivante *)
+exception Not_a_digit;;
+```
+On peut désormais créér notre fonction valeur **en prenant soin de vérifier le chiffre** de la carte si nécessaire.
+```ocaml
+let valeur carte =
+    let genre = carte.gen in
+    match genre with
+        | Chiffre ->
+            let d = carte.digit in
+            (* Vérification de la valeur de l'objet digit de la carte *)
+            if is_digit d then
+                d
+            else
+                raise Not_a_digit  
+        | Piege -> 20
+        | Joker -> 50;;
 ```
 
-2) Determiner si le joueur suivant peut jouer ou non.
+2) Determiner si le **joueur suivant peut jouer ou non**.
 ```ocaml
-let peut_jouer x = if x.g = Chiffre || (x.g = Joker && x.c =0) then true else false;; 
+let peut_jouer carte = 
+    let genre = carte.gen in
+    match genre with
+        | Chiffre -> true
+        | Joker ->
+            if carte.digit = 0 then
+                true
+            else
+                false
+        | Piege -> false;;
 ```
 
-3)
+3) Faire une fonction afin de déterminer si le joueur peut **poser sa carte sur celle présente sur la pile**.
 ```ocaml
-let peut_pose_carte x y = if x.color = y.color || (x.g = Chiffre && y.g = Chiffre && x.c = y.c) then true else false;;
+let peut_pose_carte x y = 
+    (* Même couleur OU type Chiffre et même chiffre *)
+    if x.col = y.col || (x.gen = Chiffre && y.gen = Chiffre && x.digit = y.digit) then
+        true
+    else 
+        false;;
+```
+
+4) Définir un type pour **un jeu de 54 cartes standard**, et des **fonctions de traduction entre les deux types de cartes** lorsque c’est possible.
+```ocaml
+TODO
 ```
 
 ## Exercice 15
-[liste d'entiers OCAML](http://www.cs.cornell.edu/courses/cs3110/2008fa/lectures/lec04.html)
-1) Calcul de la somme d'une liste d'entier.
+>Ressource utile : [Liste d'entiers OCAML](http://www.cs.cornell.edu/courses/cs3110/2008fa/lectures/lec04.html)
+
+On définit au préalable un type liste :
 ```ocaml
-let rec somme = fun l -> match l with | Nil -> 0 | Cons(x,s) -> x + somme s;;
+type listent = Nil | Cons of int * listent;;
+
+(* Exemple d'utilisation *)
+let rec longueur l = 
+    match l with
+        | Nil -> 0
+        | Cons(x, s) -> 1 + longueur s
 ```
 
-2) Determine si l'ensemble des entiers d'une liste sont positifs.
+1) Calcul de la somme d'une liste d'entier.
 ```ocaml
-let rec pos = fun l -> match l with | Nil -> true | Cons(x,s) -> if x > 0 then pos s else false;;
+let rec somme liste =
+    match liste with 
+        | Nil -> 0 
+        | Cons(x, s) -> x + somme s;;
+```
+
+2) Determiner si l'ensemble des entiers d'une liste sont positifs.
+```ocaml
+let rec pos liste =
+    match liste with
+        | Nil -> true 
+        | Cons(x, s) -> if x > 0 then pos s else false;;
 ```
 
 3) Ajout d'un élément en fin de liste.
 ```ocaml
-let rec ajout = fun l -> fun i -> match l with | Nil -> Cons(i,Nil) | Cons(x, s) -> Cons(x, ajout s i);;
+let rec ajout liste item =
+    match liste with 
+        | Nil -> Cons(item, Nil) 
+        | Cons(x, s) -> Cons(x, ajout s item);;
 ```
 
 4) Concaténation de deux listes
 ```ocaml
-let rec concat = fun l -> fun l2 -> match l with | Nil -> l2 | Cons(x,s) -> Cons(x,concat s l2);;
+let rec concat liste1 liste2 = 
+    match liste1 with 
+        | Nil -> liste2 
+        | Cons(x, s) -> Cons(x, concat s liste2);;
 ```
 
 ## Exercice 16
 
-1) Definir une liste de carte ( main de carte).
+1) Définir une liste de carte (main de carte).
 ```ocaml
 type listecarte = Nil | Cons of carte * listecarte;;
 ```
 
-2) Calculer la valeur d'une main de carte
+2) Calculer la valeur d'une main de carte.
 ```ocaml
-let main_v = fun l -> match l with | Nil -> 0 | Cons(x,s) -> valeur x + main_v s;;
+let main_v liste = 
+    match liste with 
+        | Nil -> 0 
+        | Cons(x,s) -> valeur x + main_v s;;
 ```
 
-3) Determiner les cartes pouvant être jouées sur une carte donnée.
+3) Déterminer les cartes pouvant être jouées sur une carte donnée.
 ```ocaml
-
+TODO
 ```
 
-4) Determiné si les cartes d'une main peuvent être jouées à la suite dans l'ordre de la main.
+4) Déterminer si les cartes d'une main peuvent être jouées à la suite dans l'ordre de la main.
+```ocaml
+TODO
+```
