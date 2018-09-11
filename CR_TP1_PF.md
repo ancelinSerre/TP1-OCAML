@@ -284,10 +284,7 @@ let valeur carte =
         | Chiffre ->
             let d = carte.digit in
             (* Vérification de la valeur de l'objet digit de la carte *)
-            if is_digit d then
-                d
-            else
-                raise Not_a_digit  
+            if is_digit d then d else raise Not_a_digit  
         | Piege -> 20
         | Joker -> 50;;
 ```
