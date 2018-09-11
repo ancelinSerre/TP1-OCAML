@@ -22,41 +22,49 @@
     </head>
     <body>
         <h1 id="tp1---programmation-fonctionnelle">TP1 - Programmation Fonctionnelle</h1>
-<p>Auteurs : Baptiste Bouvier et Ancelin Serre <br>
-Date : 07/09/2018 <br>
-Polytech INFO4</p>
+<p><strong>Auteurs</strong> : Baptiste Bouvier et Ancelin Serre <br>
+<strong>Date</strong> : 07/09/2018 <br>
+<strong>Polytech INFO4</strong></p>
+<p><strong>Site du TP :</strong> <a href="http://www-verimag.imag.fr/~wack/APF/Poly-TP-18-19.pdf">http://www-verimag.imag.fr/~wack/APF/Poly-TP-18-19.pdf</a> <br>
+<strong>Cours utiles pour ce TP:</strong></p>
+<ul>
+<li><a href="http://www-verimag.imag.fr/~wack/APF/Cours01.pdf">http://www-verimag.imag.fr/~wack/APF/Cours01.pdf</a></li>
+<li><a href="http://www-verimag.imag.fr/~wack/APF/Cours02.pdf">http://www-verimag.imag.fr/~wack/APF/Cours02.pdf</a></li>
+</ul>
+<p><em>Note: un fichier OCaml (.ml) est présent dans le dépôt afin de jouer nos bouts de codes plus rapidement.</em></p>
+<hr>
 <h2 id="exercice-1">Exercice 1</h2>
 <p>Voir sujet de TP, il s'agissait d'exécuter des commandes simples en OCaml.</p>
 <h2 id="exercice-2">Exercice 2</h2>
 <p>Evaluer chacune des expressions suivantes, observer les messages d'erreur et expliquer chacun d'entre eux. <br>
 <br>
 Premier extrait de code :</p>
-<pre><code>let pi_sur_4 = 3.14 / 4.
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> pi_sur_4 = <span class="hljs-number">3.14</span> / <span class="hljs-number">4.</span>
+</div></code></pre>
 <p>On obtient le message d'erreur suivant : <br>
 <code>Error: This expression has type float but an expression was expected of type</code> <br>
 <br>
 Cela s'explique par le fait que l'on a oublié le <code>.</code> juste après le symbole de division. On a <code>symbole /</code> on aurait du avoir <code>symbole /.</code> Dans notre cas on fait une division entière en donnant des réels ce qui ne peut donc pas fonctionner !  <br>
 <br>
 Deuxième extrait de code :</p>
-<pre><code>let dans_l_ordre = 1 < 2 < 3
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> dans_l_ordre = <span class="hljs-number">1</span> &lt; <span class="hljs-number">2</span> &lt; <span class="hljs-number">3</span>
+</div></code></pre>
 <p>On obtient le message d'erreur suivant : <br>
 <code>Error: This expression has type int but an expression was expected of type bool</code> <br>
 <br>
 Cela s'explique par le fait que OCaml calcule en premier <code>1 &lt; 2</code> ce qui renvoie <code>false</code>. On essaye ensuite de calculer <code>false &lt; 3</code> ce qui ne peut donc pas fonctionner car on compare un <code>bool</code> avec un <code>int</code>. <br>
 <br>
 Troisième extrait de code :</p>
-<pre><code>let positif = let a = 42 in if a >= 0 then true
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> positif = <span class="hljs-keyword">let</span> a = <span class="hljs-number">42</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">if</span> a &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span>
+</div></code></pre>
 <p>On obtient le message d'erreur suivant : <br>
 <code>Error: This variant expression is expected to have type unit, the constructor true does not belong to type unit</code> <br>
 <br>
 Cela s'explique par le fait qu'il manque un <code>else</code> à notre <code>if</code>. <br>
 <br>
 Quatrième extrait de code :</p>
-<pre><code>let double_absolu = let x = -2.7 in (if (x < 0) then x else -x) *. 2
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> double_absolu = <span class="hljs-keyword">let</span> x = -<span class="hljs-number">2.7</span> <span class="hljs-keyword">in</span> (<span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">then</span> x <span class="hljs-keyword">else</span> -x) *. <span class="hljs-number">2</span>
+</div></code></pre>
 <p>On obtient le message d'erreur suivant : <br>
 <br>
 Plusieurs erreurs dans ce extrait:</p>
@@ -69,41 +77,131 @@ Plusieurs erreurs dans ce extrait:</p>
 <ol>
 <li>Définir un type <strong>semaine</strong> dont les éléments permettent de représenter chaque jour de la semaine.</li>
 </ol>
-<pre><code>#type semaine = Lundi | Mardi | Mercredi | Jeudi | Vendredi | Samedi | Dimanche ;;
-type semaine = 
-        Lundi
-    |   Mardi
-    |   Mercredi
-    |   Jeudi
-    |   Vendredi
-    |   Samedi
-    |   Dimanche
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> semaine = <span class="hljs-type">Lundi</span> | <span class="hljs-type">Mardi</span> | <span class="hljs-type">Mercredi</span> | <span class="hljs-type">Jeudi</span> | <span class="hljs-type">Vendredi</span> | <span class="hljs-type">Samedi</span> | <span class="hljs-type">Dimanche</span> ;;
+<span class="hljs-keyword">type</span> semaine =
+        <span class="hljs-type">Lundi</span>
+    |   <span class="hljs-type">Mardi</span>
+    |   <span class="hljs-type">Mercredi</span>
+    |   <span class="hljs-type">Jeudi</span>
+    |   <span class="hljs-type">Vendredi</span>
+    |   <span class="hljs-type">Samedi</span>
+    |   <span class="hljs-type">Dimanche</span>
+</div></code></pre>
 <ol start="2">
 <li>Définir un type <strong>point2D</strong> qui permet de représenter les points du plan.</li>
 </ol>
-<pre><code>#type point2D = { mutable x : int; mutable y : int};;
-type point2D = { mutable x : int; mutable y : int}
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> point2D = { <span class="hljs-keyword">mutable</span> x : <span class="hljs-built_in">int</span>; <span class="hljs-keyword">mutable</span> y : <span class="hljs-built_in">int</span>};;
+</div></code></pre>
 <ol start="3">
 <li>Définir un identifiant de type <strong>point2D</strong> qui représente l'origine de repère</li>
 </ol>
-<pre><code>#let origine = {2, 4};;
-val origine : point2D = {2, 4}
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> origine = {x=<span class="hljs-number">2</span>, y=<span class="hljs-number">4</span>};;
+</div></code></pre>
 <ol start="4">
 <li>Définir un type <strong>segment</strong> (à l'aide du précédent).</li>
 </ol>
-<pre><code>#type segment = {point1 : point2D; point2 : point2D};;
-type segment = {point1 : point2D; point2 : point2D; }
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> segment = {p1 : point2D; p2 : point2D};;
+</div></code></pre>
 <ol start="5">
 <li>Définir un type somme <strong>figure</strong> pour représenter les figures géométriques carré, rectangle et cercle.</li>
 </ol>
-<pre><code>#type figure = Carre of segment * segment * segment * segment 
-| Rectangle of segment * segment * segment * segment 
-| Cercle of point2D
-</code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> figure = <span class="hljs-type">Carre</span> <span class="hljs-keyword">of</span> segment * segment * segment * segment
+| <span class="hljs-type">Rectangle</span> <span class="hljs-keyword">of</span> segment * segment * segment * segment
+| <span class="hljs-type">Cercle</span> <span class="hljs-keyword">of</span> point2D
+</div></code></pre>
+<h2 id="exercice-4">Exercice 4</h2>
+<p>Développement d'un jeu <strong>Uno</strong> pour illustrer les types composés.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> couleur = <span class="hljs-type">Vert</span> | <span class="hljs-type">Rouge</span> | <span class="hljs-type">Bleu</span> | <span class="hljs-type">Jaune</span> | <span class="hljs-type">Noir</span>
+<span class="hljs-keyword">type</span> chiffre = x : <span class="hljs-built_in">int</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">if</span> x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; <span class="hljs-number">9</span> x <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+<span class="hljs-keyword">type</span> genre = <span class="hljs-type">Chiffre</span> | <span class="hljs-type">Piege</span> | <span class="hljs-type">Joker</span>
+<span class="hljs-keyword">type</span> carte = genre * couleur * chiffre
+</div></code></pre>
+<p>Pour le jeu de Uno, on propose la hiérarchie de types suivante :</p>
+<ul>
+<li>Piege et 0 -&gt; passe ton tour</li>
+<li>Piege et 1 -&gt; changement de sens</li>
+<li>Piege et 2 -&gt; Plus 2</li>
+<li>Joker et 0 -&gt; changement de couleur (couleur Noire obligatoire)</li>
+<li>Joker et 1 -&gt; plus 4 (couleur Noire obligatoire)</li>
+</ul>
+<h2 id="exercice-5">Exercice 5</h2>
+<ol>
+<li>Faire une fonction qui calcule le cube d'un réel.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> cube = <span class="hljs-keyword">fun</span> x -&gt; x *. x *. x;;
+</div></code></pre>
+<ol start="2">
+<li>Faire une fonction qui calcule si un entier est positif.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> positif = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>;;
+</div></code></pre>
+<ol start="3">
+<li>Faire une fonction qui calcule si un entier est pair.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> pair = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">if</span> x <span class="hljs-keyword">mod</span> <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>;;
+</div></code></pre>
+<ol start="4">
+<li>Faire une fonction qui calcule le signe d'un entier.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> signe = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> x &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> (-<span class="hljs-number">1</span>) <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>;;
+</div></code></pre>
+<h2 id="exercice-6">Exercice 6</h2>
+<ol>
+<li>Produit de 3 entiers sous la forme d'une fonction curryfiée.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> f1 = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">fun</span> z -&gt; x * y * z;;
+</div></code></pre>
+<ol start="2">
+<li>Somme de 3 entiers sous la forme d'une fonction curryfiée.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> f2 = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">fun</span> z -&gt; x + y + z;;
+</div></code></pre>
+<h2 id="exercice-7">Exercice 7</h2>
+<ol>
+<li>Fonction qui determine si un triplet de valeur forme un triplet pythagoricien.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> pytha = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">fun</span> z -&gt;
+<span class="hljs-keyword">if</span>(x*x)+(y*y)=(z*z) || (y*y)+(z*z)=(x*x) || (x*x)+(z*z)=(y*y) <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>;;
+</div></code></pre>
+<ol start="2">
+<li>Fonction qui determine si 2 entiers sont de même signe.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> meme_signe = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">if</span>( x &gt; <span class="hljs-number">0</span> &amp;&amp; y &gt; <span class="hljs-number">0</span>)  || (x&lt;<span class="hljs-number">0</span> &amp;&amp; y&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>;;
+</div></code></pre>
+<h2 id="exercice-8">Exercice 8</h2>
+<ul>
+<li>Dans l'exercice 6, les fonctions rédigées correspondent à des <strong>fonctions mathématiques</strong> réalisant des calculs sur des entiers et renvoyant une valeur.</li>
+<li>Dans l'exercice 7, les fonctions correspondent cette fois à des <strong>prédicats</strong> : on effectue de nouveau des calculs avec des entiers mais on s'intéresse cette fois non plus au résultats de ces derniers mais aux valeurs particulières obtenues cela dans l'objectif de renvoyer un booléen.</li>
+</ul>
+<ol>
+<li>Fonction ayant le type <code>int -&gt; int -&gt; int</code></li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> fonc = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; x + y;;
+</div></code></pre>
+<ol start="2">
+<li>Fonction ayant le type <code>int -&gt; int -&gt; bool</code></li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> fonc = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> &amp;&amp; y &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>;;
+</div></code></pre>
+<h2 id="exercice-9">Exercice 9</h2>
+<p>Fonction calculant le minimum entre <strong>deux entiers</strong>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> min2entiers = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">if</span> x &lt;= y <span class="hljs-keyword">then</span> x <span class="hljs-keyword">else</span> y;;
+</div></code></pre>
+<h2 id="exercice-10">Exercice 10</h2>
+<p>Fonction calculant le minimum entre <strong>trois entiers</strong>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> min3entiers = <span class="hljs-keyword">fun</span> x -&gt; <span class="hljs-keyword">fun</span> y -&gt; <span class="hljs-keyword">fun</span> z -&gt; <span class="hljs-keyword">if</span> min2entiers x y &lt;= z <span class="hljs-keyword">then</span> min2entiers x y <span class="hljs-keyword">else</span> z;;
+</div></code></pre>
+<h2 id="exercice-11">Exercice 11</h2>
+<ol>
+<li>Fonction renvoyant le <strong>milieu d'un segment</strong> (<code>point2D</code>)</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> milieu = <span class="hljs-keyword">fun</span> seg -&gt; {x = (seg.p1.x + seg.p2.x) / <span class="hljs-number">2</span> ; y = (seg.p1.y + seg.p2.y) / <span class="hljs-number">2</span>};;
+</div></code></pre>
+<ol start="2">
+<li>Fonction déterminant si un <strong>point appartient ou non à un segment</strong></li>
+</ol>
+<pre class="hljs"><code><div>
+</div></code></pre>
 
     </body>
     </html>

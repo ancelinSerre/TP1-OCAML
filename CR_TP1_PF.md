@@ -3,10 +3,10 @@
 **Date** : 07/09/2018 \
 **Polytech INFO4**
 
-**Site du TP :** http://www-verimag.imag.fr/~wack/APF/Poly-TP-18-19.pdf \
+**Site du TP :** [lien vers le TP1](http://www-verimag.imag.fr/~wack/APF/Poly-TP-18-19.pdf) \
 **Cours utiles pour ce TP:**
-- http://www-verimag.imag.fr/~wack/APF/Cours01.pdf
-- http://www-verimag.imag.fr/~wack/APF/Cours02.pdf
+- [Cours 1](http://www-verimag.imag.fr/~wack/APF/Cours01.pdf)
+- [Cours 2](http://www-verimag.imag.fr/~wack/APF/Cours02.pdf)
   
 *Note: un fichier OCaml (.ml) est présent dans le dépôt afin de jouer nos bouts de codes plus rapidement.*
 
