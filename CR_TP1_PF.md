@@ -89,7 +89,7 @@ type segment = { p1 : point2D; p2 : point2D};;
 type figure  = 
     | Carre of segment * segment * segment * segment
     | Rectangle of segment * segment * segment * segment
-    | Cercle of point2D;;
+    | Cercle of segment;;
 ```
 
 ## Exercice 4
@@ -248,7 +248,7 @@ rappelons le les types suivants :
 > type figure  = 
 >   | Carre of segment * segment * segment * segment
 >   | Rectangle of segment * segment * segment * segment
->   | Cercle of point2D;;
+>   | Cercle of segment;;
 > ```
 > *Rappel : Le type `segment` contient deux `point2D`*
 
